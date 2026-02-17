@@ -7,6 +7,21 @@
     <title>{{title}}</title>
 </head>
 <body>
+    <a href="/">Home</a>
+    <a href="/recipies">Browse Recipies</a>
+    {{#if authenticated}}
+        <a href="/my-recipies">My Recipies</a>
+        <a href="/favorites">Favorites</a>
+        <a href="/logout">Logout</a>
+        <div>Welcome, {{username}}!</div>
+    {{else}}
+        <a href="/login">Login</a>
+        <a href="/register">Register</a>
+    {{/if}}
     {{{body}}}
 </body>
+
+<footer>
+    <p>&copy; 2026 My Recipies App</p>
+</footer>
 </html>
