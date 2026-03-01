@@ -15,3 +15,6 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+// how does id: endpoint work
+// how does the router with authentication work and without authentication
