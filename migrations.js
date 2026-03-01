@@ -1,8 +1,6 @@
-import { Client } from 'pg';
 import { getClient } from './utils/db.js';
 import dotenv from 'dotenv';
 import fs from 'fs';
-import e from 'express';
 
 dotenv.config();
 
