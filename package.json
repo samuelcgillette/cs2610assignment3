@@ -12,6 +12,7 @@
     "migrate": "node migrate.js"
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "express": "^5.2.1",
     "express-handlebars": "^8.0.6",
     "nodemon": "^3.1.11",
