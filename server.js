@@ -1,6 +1,6 @@
 import express from 'express';
 import { engine } from 'express-handlebars';
-import registerRouter from './controllers/registerController.js';
+import registerController from './controllers/register_controller.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
   res.render('home', { title: 'Home Page', recipies: [{ name: 'Spaghetti' }, { name: 'Tacos' }, { name: 'Pizza' }] });
 });
 
-app.use('/register', registerRouter);
+app.use('/register', registerController);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

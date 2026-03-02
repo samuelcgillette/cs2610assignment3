@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { createUser } from "../models/users.js";
-
-import pool from "../utils/db.js";
+import { createSession } from "../modules/sessions.js";
 
 const router = Router();
 
