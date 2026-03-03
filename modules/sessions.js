@@ -1,6 +1,7 @@
 import crypto from "crypto"
 import db from "../utils/db.js";
 
+
 export async function createSession(userId) {
   const token = crypto.randomBytes(64).toString("hex");
   const client = await db.connect();

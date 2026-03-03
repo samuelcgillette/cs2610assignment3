@@ -3,7 +3,8 @@ import { engine } from 'express-handlebars';
 import registerController from './controllers/register_controller.js';
 import cookieParser from 'cookie-parser';
 import authenticationMiddleware from './middleware/authentication_middleware.js';
-
+import sessionsController from './controllers/sessions_controller.js';
+import recipeController from './controllers/recipe_controller.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -21,7 +22,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/register', registerController);
-
+app.use('/sessions', sessionsController);
 app.use('/recipes', recipeController);
 
 app.listen(PORT, () => {
