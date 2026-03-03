@@ -1,0 +1,40 @@
+<h1>{{title}}</h1>
+
+<form method="post" action="/recipes">
+  <div>
+    <label for="title">Recipe Title</label>
+    <input type="text" id="title" name="title" required>
+  </div>
+
+  <div>
+    <label for="description">Description</label>
+    <textarea id="description" name="description" required></textarea>
+  </div>
+
+  <div>
+    <label for="ingredients">Ingredients</label>
+    <textarea id="ingredients" name="ingredients" required></textarea>
+  </div>
+
+  <div>
+    <label for="instructions">Instructions</label>
+    <textarea id="instructions" name="instructions" required></textarea>
+  </div>
+
+  <div>
+    <label for="prep_time">Prep Time (minutes)</label>
+    <input type="number" id="prep_time" name="prep_time" required>
+  </div>
+
+  <div>
+    <label for="cook_time">Cook Time (minutes)</label>
+    <input type="number" id="cook_time" name="cook_time" required>
+  </div>
+
+  <div>
+    <label for="servings">Servings</label>
+    <input type="number" id="servings" name="servings" required>
+  </div>
+
+  <button type="submit">Create Recipe</button>
+</form>

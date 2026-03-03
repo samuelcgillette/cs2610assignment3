@@ -5,7 +5,6 @@ import { requireAuth } from "../middleware/authentication_middleware.js";
 
 const router = Router();
 
-// display all recipes
 router.get("/", async (req, res) => {
     const result = await pool.query("SELECT * FROM recipes ORDER BY created_at DESC");
     res.render("recipes/index", { title: "All Recipes", recipes: result.rows });
@@ -17,7 +16,7 @@ router.get("/:id", async (req, res) => {
     if (result.rows.length === 0) {
         res.status(404).send("Recipe not found");
     } else {
-        res.render("recipes/show", { title: result.rows[0].name, recipe: result.rows[0] });
+        res.render("recipes/show", { title: result.rows[0].name, recipe: result.rows[0], user: req.user, authenticated: req.authenticated });
     }
 });
 
@@ -25,7 +24,7 @@ router.get("/new", requireAuth, (req, res) => {
     res.render("recipes/new", { title: "New Recipe" });
 });
 
-router.post("/", async (req, res) => {
+router.post("/", requireAuth, async (req, res) => {
     const { title, description, ingredients, instructions, prep_time, cook_time, servings } = req.body;
     await pool.query(
         "INSERT INTO recipes (title, description, ingredients, instructions, prep_time, cook_time, servings) VALUES ($1, $2, $3, $4, $5, $6, $7)",
@@ -34,11 +33,11 @@ router.post("/", async (req, res) => {
     res.redirect("/recipes")
 });
 
-router.get("/recipes/:id/edit", async (req,res) => {
+router.get("/recipes/:id/edit", requireAuth, async (req,res) => {
     res.render("recipes/edit", {title: "edit recipe"});
 })
 
-router.post("/recipes/:id", async (req,res) => {
+router.post("/recipes/:id", requireAuth, async (req,res) => {
     const id = req.params.id;
     const { title, description, ingredients, instructions, prep_time, cook_time, servings } = req.body;
     const result = await pool.query(
@@ -48,24 +47,24 @@ router.post("/recipes/:id", async (req,res) => {
     res.redirect(`/recipes/${id}`);
 })
 
-router.post("/recipes/:id/delete", async (req,res) => {
+router.post("/recipes/:id/delete", requireAuth, async (req,res) => {
     const id = req.params.id;
     await pool.query("DELETE FROM recipes WHERE id = $1", [id]);
     res.redirect("/recipes");
 });
 
-router.post("/recipes/:id/rate", async (req,res) => {
+router.post("/recipes/:id/rate", requireAuth, async (req,res) => {
     const id = req.params.id;
     const { rating } = req.body;
     await pool.query("INSERT INTO ratings (recipe_id, user_id, rating) VALUES ($1, $2, $3)",
-    [id, req.user ,rating])
+    [id, req.user.id ,rating])
 
 });
 
-router.post("/recipes/:id/favorite", async (req,res) => {
+router.post("/recipes/:id/favorite", requireAuth, async (req,res) => {
     const id = req.params.id
-    await pool.query("INSERT INTO favorites (recipe_id, user_id)",
-    [id,req.user]
+    await pool.query("INSERT INTO favorites (recipe_id, user_id) VALUES ($1, $2)",
+    [id,req.user.id]
     )
 })
 

@@ -1,0 +1,13 @@
+<h1>{{title}}</h1>
+
+<div class="recipes-container">
+  {{#each recipes}}
+    <div class="recipe-card">
+      <h2><a href="/recipes/{{id}}">{{title}}</a></h2>
+      <p>{{description}}</p>
+      <p><strong>Prep Time:</strong> {{prep_time}} minutes</p>
+      <p><strong>Cook Time:</strong> {{cook_time}} minutes</p>
+      <p><strong>Servings:</strong> {{servings}}</p>
+    </div>
+  {{/each}}
+</div>
