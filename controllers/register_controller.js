@@ -5,9 +5,10 @@ import { createSession } from "../modules/sessions.js";
 const router = Router();
 
 function validateUserBody(body) {
+  console.log("Received validate data:", body);
   if (body.firstname === '' || body.lastname === '' || body.email === '' || body.password === '') return false;
   if (!body.email.includes('@')) return false;
-  if (body.password.length < 8) return false;
+  if (body.password_hash.length < 8) return false;
   return true;
 }
 
@@ -21,7 +22,7 @@ router.get("/", (req, res) => {
 // Create a new user
 router.post("/", async (req, res) => {
     const { username, email, password_hash } = req.body;
-
+    console.log("Received registration data:", req.body);
     if (!validateUserBody(req.body)) {
         res.send("Make sure you have filled out all fields and that your password is long enough (8 characters)");
         return;

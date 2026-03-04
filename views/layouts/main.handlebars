@@ -12,10 +12,10 @@
     {{#if authenticated}}
         <a href="/my-recipes">My Recipes</a>
         <a href="/favorites">Favorites</a>
-        <a href="/logout">Logout</a>
-        <div>Welcome, {{username}}!</div>
+        <a href="/sessions/logout">Logout</a>
+        
     {{else}}
-        <a href="/login">Login</a>
+        <a href="/sessions/login">Login</a>
         <a href="/register">Register</a>
     {{/if}}
     {{{body}}}
