@@ -1,11 +1,10 @@
 import express from 'express';
 import { engine } from 'express-handlebars';
-import registerController from './controllers/register_controller.js';
+import registerController from './controllers/user_controller.js';
 import cookieParser from 'cookie-parser';
 import authenticationMiddleware from './middleware/authentication_middleware.js';
 import sessionsController from './controllers/sessions_controller.js';
 import recipeController from './controllers/recipe_controller.js';
-import pool from "./utils/db.js";
 import { getAllRecipes } from './modules/recipes.js';
 
 const app = express();
@@ -23,7 +22,7 @@ app.get('/', async (req, res) => {
   res.render("home", { title: "Home", recipes: await getAllRecipes(), authenticated: req.authenticated, user: req.user });
 });
 
-app.use('/register', registerController);
+app.use('/user', registerController);
 app.use('/sessions', sessionsController);
 app.use('/recipes', recipeController);
 

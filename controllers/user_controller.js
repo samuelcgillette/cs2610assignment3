@@ -13,14 +13,14 @@ function validateUserBody(body) {
 }
 
 // Show form to create a new user
-router.get("/", (req, res) => {
+router.get("/new", (req, res) => {
     res.render("users/new");
 });
 
 
 
 // Create a new user
-router.post("/", async (req, res) => {
+router.post("/new", async (req, res) => {
     const { username, email, password_hash } = req.body;
     console.log("Received registration data:", req.body);
     if (!validateUserBody(req.body)) {
@@ -37,5 +37,7 @@ router.post("/", async (req, res) => {
     
     res.redirect("/");
 });
+
+
 
 export default router;
