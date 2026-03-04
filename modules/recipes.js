@@ -1,7 +1,9 @@
 import pool from "../utils/db.js";
 
 export async function getAllRecipes() {
+    console.log("Getting all recipes");
     const result = await pool.query("SELECT * FROM recipes ORDER BY created_at DESC");
+    console.log("Got recipes:", result.rows);
     return result.rows;
 }
 
@@ -17,8 +19,8 @@ export async function getRecipeById(id) {
 export async function createRecipe(req) {
     const { title, description, ingredients, instructions, prep_time, cook_time, servings } = req.body;
     await pool.query(
-        "INSERT INTO recipes (title, description, ingredients, instructions, prep_time, cook_time, servings) VALUES ($1, $2, $3, $4, $5, $6, $7)",
-        [title, description, ingredients, instructions, prep_time, cook_time, servings]
+        "INSERT INTO recipes (title, description, ingredients, instructions, prep_time, cook_time, servings, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
+        [title, description, ingredients, instructions, prep_time, cook_time, servings, req.user.id]
     );
 }
 
