@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { requireAuth } from "../middleware/require_auth.js";
-import { getAllRecipes, getRecipeById, createRecipe, updateRecipe, favoriteRecipe, deleteRecipe, rateRecipe, getUserRecipes } from "../modules/recipes.js";
+import { getAllRecipes, getRecipeById, createRecipe, updateRecipe, favoriteRecipe, deleteRecipe, rateRecipe, getUserRecipes, getFavorites } from "../modules/recipes.js";
 
 const router = Router();
 
@@ -15,6 +15,11 @@ router.get("/new", requireAuth, (req, res) => {
 
 router.get("/my-recipes", requireAuth, async (req,res) => {
     res.render("recipes/index", { title: "My Recipes", recipes: await getUserRecipes(req.user.id), user: req.user, authenticated: req.authenticated });
+});
+
+router.get("/favorites", requireAuth, async (req,res) => {
+    
+    res.render("recipes/index", { title: "My Favorites", recipes: await getFavorites(req.user.id), user: req.user, authenticated: req.authenticated });
 });
 
 router.get("/:id", async (req, res) => {
@@ -58,5 +63,7 @@ router.post("/:id/rate", requireAuth, async (req,res) => {
 router.post("/:id/favorite", requireAuth, async (req,res) => {
     await favoriteRecipe(req.params.id, req.user.id);
 })
+
+
 
 export default router;

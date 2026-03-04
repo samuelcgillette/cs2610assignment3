@@ -51,3 +51,13 @@ export async function getUserRecipes(userId) {
     const result = await pool.query("SELECT * FROM recipes WHERE user_id = $1", [userId]);
     return result.rows;
 }
+
+export async function getFavorites(userId) {
+  const result = await pool.query(`
+    SELECT recipes.*
+    FROM favorites
+    JOIN recipes ON favorites.recipe_id = recipes.id
+    WHERE favorites.user_id = $1
+  `, [userId]);
+  return result.rows;
+}
