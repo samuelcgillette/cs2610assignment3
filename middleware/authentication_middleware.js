@@ -1,4 +1,4 @@
-import { getSessionWithUser } from "../models/sessions.js";
+import { getSessionWithUser } from "../modules/sessions.js";
 
 export default async function authenticationMiddleware(req, res, next) {
   if (req.cookies.session_token) {

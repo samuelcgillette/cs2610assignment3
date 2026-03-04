@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { authenticateUser } from "../modules/users";
+import { authenticateUser } from "../modules/users.js";
 import { requireAuth } from "../middleware/require_auth.js";
 
 
