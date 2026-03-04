@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { authenticateUser } from "../modules/users.js";
 import { requireAuth } from "../middleware/require_auth.js";
+import { createSession, deleteSession } from "../modules/sessions.js";
 
 
 const router = Router();
@@ -23,7 +24,7 @@ router.post("/", async (req, res) => {
 
 router.post("/logout", requireAuth, async (req, res) => {
     res.clearCookie("session_token");
-    deleteSession(req.cookies.session_token);
+    deleteSession(req.cookies.session_token, req.user.id);
     res.redirect("/");
 });
 

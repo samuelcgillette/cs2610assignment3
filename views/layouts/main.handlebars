@@ -12,7 +12,9 @@
     {{#if authenticated}}
         <a href="/my-recipes">My Recipes</a>
         <a href="/favorites">Favorites</a>
-        <a href="/sessions/logout">Logout</a>
+        <form action="/sessions/logout" method="POST" style="display: inline;">
+            <button type="submit">Logout</button>
+        </form>
         
     {{else}}
         <a href="/sessions/login">Login</a>
