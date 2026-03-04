@@ -1,6 +1,7 @@
 import { Router } from "express";
-import { createUser } from "../modules/users.js";
+import { createUser, getUserById } from "../modules/users.js";
 import { createSession } from "../modules/sessions.js";
+import { getUserRecipes } from "../modules/recipes.js";
 
 const router = Router();
 
@@ -38,6 +39,13 @@ router.post("/new", async (req, res) => {
     res.redirect("/");
 });
 
+router.get("/:id", async (req, res) => {
+    //need to get user information like username
+    const user = await getUserById(req.params.id);
+    //need to get all of the recpies of a single user
+    const recipes = await getUserRecipes(req.params.id);
+    //give that information to handlebars
+    res.render("users/show", { title: `${user.username}'s Recipes`, user, recipes });
 
-
+});
 export default router;

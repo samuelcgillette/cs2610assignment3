@@ -2,6 +2,8 @@
 <div>Here are the featured recipes</div>
 <ul>
     {{#each recipes}}
-        <li>{{title}}</li>
+        <li>
+            <a href="/recipes/{{id}}">{{title}}</a> by <a href="/user/{{user_id}}">creator</a>
+        </li>
     {{/each}}
 </ul>
