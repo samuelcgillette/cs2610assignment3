@@ -11,4 +11,4 @@ CREATE TABLE recipes (
     created_at TIMESTAMP DEFAULT now(),
     updated_at TIMESTAMP DEFAULT now() ON UPDATE now()
     
-)
+);

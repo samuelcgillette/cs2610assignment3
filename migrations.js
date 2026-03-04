@@ -22,8 +22,8 @@ async function runMigrations() {
     for (let migrationFile of migrations) {
         if (!appliedMigrations.includes(migrationFile)) {
             const fileContent = fs.readFileSync(`./migrations/${migrationFile}`, 'utf-8');
-            await client.query(fileContent);
-            await client.query('INSERT INTO migrations (filename) VALUES ($1)', [migrationFile]);
+            await pool.query(fileContent);
+            await pool.query('INSERT INTO migrations (filename) VALUES ($1)', [migrationFile]);
             console.log(`Applied migration: ${migrationFile}`);
         }
         else {
@@ -31,7 +31,6 @@ async function runMigrations() {
         }
     }
 
-    await client.end();
 }
 
 async function main() {

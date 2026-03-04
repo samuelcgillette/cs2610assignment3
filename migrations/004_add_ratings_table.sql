@@ -5,4 +5,4 @@ CREATE TABLE ratings (
     rating INT CHECK (rating >= 1 AND rating <= 5) NOT NULL,
     created_at TIMESTAMP DEFAULT now(),
     UNIQUE (recipe_id, user_id)
-)
+);

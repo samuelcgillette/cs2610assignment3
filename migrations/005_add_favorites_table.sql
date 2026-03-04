@@ -4,4 +4,4 @@ CREATE TABLE favorites (
     recipe_id INT REFERENCES recipes(id) NOT NULL,
     created_at TIMESTAMP DEFAULT now(),
     UNIQUE (user_id, recipe_id)
-)
+);
