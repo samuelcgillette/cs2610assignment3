@@ -10,7 +10,8 @@
     <a href="/">Home</a>
     <a href="/recipes">Browse Recipes</a>
     {{#if authenticated}}
-        <a href="/my-recipes">My Recipes</a>
+        <a href="/recipes/my-recipes">My Recipes</a>
+        <a href="/recipes/new">Create Recipe</a>
         <a href="/favorites">Favorites</a>
         <form action="/sessions/logout" method="POST" style="display: inline;">
             <button type="submit">Logout</button>

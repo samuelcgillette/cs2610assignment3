@@ -18,13 +18,12 @@ router.post("/", async (req, res) => {
     res.cookie('session_token', token, {
         httpOnly: true,
     });
-
     res.redirect("/");
 });
 
 router.post("/logout", requireAuth, async (req, res) => {
     res.clearCookie("session_token");
-    deleteSession(req.cookies.session_token, req.user.id);
+    await deleteSession(req.cookies.session_token, req.user.id);
     res.redirect("/");
 });
 
