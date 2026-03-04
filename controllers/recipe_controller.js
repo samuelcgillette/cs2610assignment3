@@ -14,7 +14,7 @@ router.get("/new", requireAuth, (req, res) => {
 });
 
 router.get("/my-recipes", requireAuth, async (req,res) => {
-    res.render("recipes/index", { title: "My Recipes", recipes: await getUserRecipes(req.user.id) });
+    res.render("recipes/index", { title: "My Recipes", recipes: await getUserRecipes(req.user.id), user: req.user, authenticated: req.authenticated });
 });
 
 router.get("/:id", async (req, res) => {
@@ -34,32 +34,29 @@ router.post("/", requireAuth, async (req, res) => {
     res.redirect("/recipes")
 });
 
-router.get("/recipes/:id/edit", requireAuth, async (req,res) => {
-    res.render("recipes/edit", {title: "edit recipe"});
+router.get("/:id/edit", requireAuth, async (req,res) => {
+    res.render("recipes/edit", {title: "edit recipe", recipe: await getRecipeById(req.params.id), user: req.user, authenticated: req.authenticated});
 })
 
-router.post("/recipes/:id", requireAuth, async (req,res) => {
+router.post("/:id", requireAuth, async (req,res) => {
     const id = req.params.id;
     await updateRecipe(id, req);
     res.redirect(`/recipes/${id}`);
 })
 
-router.post("/recipes/:id/delete", requireAuth, async (req,res) => {
+router.post("/:id/delete", requireAuth, async (req,res) => {
+    console.log("alo")
     await deleteRecipe(req.params.id);
     res.redirect("/recipes");
 });
 
-router.post("/recipes/:id/rate", requireAuth, async (req,res) => {
+router.post("/:id/rate", requireAuth, async (req,res) => {
     const { rating } = req.body;
     await rateRecipe(req.params.id, req.user.id, rating);
 });
 
-router.post("/recipes/:id/favorite", requireAuth, async (req,res) => {
+router.post("/:id/favorite", requireAuth, async (req,res) => {
     await favoriteRecipe(req.params.id, req.user.id);
 })
-
-
-
-
 
 export default router;
