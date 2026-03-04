@@ -9,6 +9,6 @@ CREATE TABLE recipes (
     servings INT CHECK (servings > 0) NOT NULL,
     user_id INT REFERENCES users(id) NOT NULL,
     created_at TIMESTAMP DEFAULT now(),
-    updated_at TIMESTAMP DEFAULT now() ON UPDATE now()
+    updated_at TIMESTAMP DEFAULT now()
     
 );
