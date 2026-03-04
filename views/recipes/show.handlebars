@@ -16,11 +16,11 @@
 
 
 <div class="recipe-actions">
-  {{#if user}}
-  <a href="/recipes/{{recipe.id}}/edit">Edit</a>
-  <form method="post" action="/recipes/{{recipe.id}}/delete" style="display:inline;">
-    <button type="submit">Delete</button>
-  </form>
+  {{#if isOwner}}
+    <a href="/recipes/{{recipe.id}}/edit">Edit</a>
+    <form method="post" action="/recipes/{{recipe.id}}/delete" style="display:inline;">
+      <button type="submit">Delete</button>
+    </form>
   {{/if}}
 
 

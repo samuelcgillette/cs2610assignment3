@@ -13,13 +13,18 @@ router.get("/new", requireAuth, (req, res) => {
     res.render("recipes/new", { title: "New Recipe" });
 });
 
+router.get("/my-recipes", requireAuth, async (req,res) => {
+    res.render("recipes/index", { title: "My Recipes", recipes: await getUserRecipes(req.user.id) });
+});
+
 router.get("/:id", async (req, res) => {
     const recipe = await getRecipeById(req.params.id);
     if (!recipe) {
         res.status(404).send("Recipe not found");
         return;
     }
-    res.render("recipes/show", { title: recipe.title, recipe: recipe, user: req.user, authenticated: req.authenticated });
+    res.render("recipes/show", { title: recipe.title, recipe: recipe, 
+        isOwner: recipe.user_id === req.user.id, authenticated: req.authenticated });
 });
 
 
@@ -53,9 +58,7 @@ router.post("/recipes/:id/favorite", requireAuth, async (req,res) => {
     await favoriteRecipe(req.params.id, req.user.id);
 })
 
-router.get("/my-recipes", requireAuth, async (req,res) => {
-    res.render("recipes/my_recipes", { title: "My Recipes", recipes: await getUserRecipes(req.user.id) });
-});
+
 
 
 
