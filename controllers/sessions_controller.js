@@ -6,7 +6,7 @@ import { requireAuth } from "../middleware/require_auth.js";
 const router = Router();
 
 router.post("/", async (req, res) => {
-    const user = await authenticateUser(req.body.email, req.body.password);
+    const user = await authenticateUser(req.body.email, req.body.password_hash);
 
     if (!user) {
         res.send("Invalid email or password");

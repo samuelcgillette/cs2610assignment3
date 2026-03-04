@@ -68,6 +68,11 @@ router.post("/recipes/:id/favorite", requireAuth, async (req,res) => {
     )
 })
 
+router.get("/my-recipes", requireAuth, async (req,res) => {
+    const result = await pool.query("SELECT * FROM recipes WHERE user_id = $1", [req.user.id]);
+    res.render("recipes/my_recipes", { title: "My Recipes", recipes: result.rows });
+});
+
 
 
 

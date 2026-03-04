@@ -9,10 +9,12 @@ export async function createUser(username, email, password) {
   `, [username, email, await bcrypt.hash(password, 10)]);
 
   return rows[0];
+  //if user already exists need to do something
 }
 
 
 export async function authenticateUser(email, password) {
+  console.log("authenticating " + email + " " + password);
   const client = await db.connect();
   const { rows } = await client.query(`
     SELECT * FROM users WHERE email = $1
