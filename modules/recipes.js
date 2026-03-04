@@ -47,6 +47,25 @@ export async function favoriteRecipe(recipeId, userId) {
     )
 }
 
+export async function getRatingAverage(recipeId) {
+    const result = await pool.query("SELECT rating FROM ratings WHERE recipe_id = $1", [recipeId]);
+
+    if (result.rows.length === 0) {
+        return null;
+    }
+
+    let total = 0;
+    for (const row of result.rows) {
+        total += Number(row.rating);
+    }
+    return Math.round(total / result.rows.length);
+}
+
+export async function getNumFavorites(recipeId) {
+    const result = await pool.query("SELECT * FROM favorites WHERE recipe_id = $1", [recipeId]);
+    return result.rows.length;
+}
+
 export async function getUserRecipes(userId) {
     const result = await pool.query("SELECT * FROM recipes WHERE user_id = $1", [userId]);
     return result.rows;
@@ -61,3 +80,4 @@ export async function getFavorites(userId) {
   `, [userId]);
   return result.rows;
 }
+

@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { requireAuth } from "../middleware/require_auth.js";
-import { getAllRecipes, getRecipeById, createRecipe, updateRecipe, favoriteRecipe, deleteRecipe, rateRecipe, getUserRecipes, getFavorites } from "../modules/recipes.js";
+import { getAllRecipes, getRecipeById, createRecipe, updateRecipe, favoriteRecipe, deleteRecipe, rateRecipe, getUserRecipes, getFavorites, getRatingAverage, getNumFavorites } from "../modules/recipes.js";
 
 const router = Router();
 
@@ -28,15 +28,17 @@ router.get("/:id", async (req, res) => {
         res.status(404).send("Recipe not found");
         return;
     }
+    const ratingAverage = await getRatingAverage(req.params.id);
+    const numFavorites = await getNumFavorites(req.params.id);
     res.render("recipes/show", { title: recipe.title, recipe: recipe, 
-        isOwner: recipe.user_id === req.user.id, authenticated: req.authenticated });
+        isOwner: recipe.user_id === req.user.id, authenticated: req.authenticated, ratingAverage, numFavorites });
 });
 
 
 
 router.post("/", requireAuth, async (req, res) => {
     await createRecipe(req);
-    res.redirect("/recipes")
+    res.redirect("/recipes");
 });
 
 router.get("/:id/edit", requireAuth, async (req,res) => {
@@ -58,10 +60,12 @@ router.post("/:id/delete", requireAuth, async (req,res) => {
 router.post("/:id/rate", requireAuth, async (req,res) => {
     const { rating } = req.body;
     await rateRecipe(req.params.id, req.user.id, rating);
+    res.redirect(`/recipes/${req.params.id}`);
 });
 
 router.post("/:id/favorite", requireAuth, async (req,res) => {
     await favoriteRecipe(req.params.id, req.user.id);
+    res.redirect(`/recipes/${req.params.id}`);
 })
 
 
