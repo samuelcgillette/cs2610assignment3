@@ -9,6 +9,9 @@ export default async function authenticationMiddleware(req, res, next) {
       req.authenticated = true;
     }
   }
+  else {
+    req.authenticated = false;
+  }
   next();
 }
 

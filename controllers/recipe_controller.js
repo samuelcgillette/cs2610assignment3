@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { requireAuth } from "../middleware/require_auth.js";
-import { getAllRecipes, getRecipeById, createRecipe, updateRecipe, favoriteRecipe, deleteRecipe, rateRecipe, getUserRecipes, getFavorites, getRatingAverage, getNumFavorites } from "../modules/recipes.js";
+import { getAllRecipes, getRecipeById, createRecipe, updateRecipe, favoriteRecipe, deleteRecipe, rateRecipe, getUserRecipes, getFavorites, getRatingAverage, getNumFavorites, isOwner } from "../modules/recipes.js";
 
 const router = Router();
 
@@ -31,7 +31,7 @@ router.get("/:id", async (req, res) => {
     const ratingAverage = await getRatingAverage(req.params.id);
     const numFavorites = await getNumFavorites(req.params.id);
     res.render("recipes/show", { title: recipe.title, recipe: recipe, 
-        isOwner: recipe.user_id === req.user.id, authenticated: req.authenticated, ratingAverage, numFavorites });
+        isOwner: isOwner(recipe, req.user), authenticated: req.authenticated, ratingAverage, numFavorites });
 });
 
 

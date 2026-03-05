@@ -81,3 +81,10 @@ export async function getFavorites(userId) {
   return result.rows;
 }
 
+export function isOwner(recipe, user) {
+    try {
+        return recipe.user_id === user.id;
+    } catch (e) {
+        return false;
+    }
+}
