@@ -42,8 +42,10 @@ export async function deleteRecipe(id) {
 }
 
 export async function rateRecipe(recipeId, userId, rating) {
-    await pool.query("INSERT INTO ratings (recipe_id, user_id, rating) VALUES ($1, $2, $3)",
-    [recipeId, userId, rating]);
+    await pool.query(
+        "INSERT INTO ratings (recipe_id, user_id, rating) VALUES ($1, $2, $3) ON CONFLICT (recipe_id, user_id) DO UPDATE SET rating = EXCLUDED.rating",
+        [recipeId, userId, rating]
+    );
 }
 
 export async function favoriteRecipe(recipeId, userId) {
@@ -67,6 +69,19 @@ export async function getRatingAverage(recipeId) {
         averageRating: Math.round(total / result.rows.length),
         totalRatings: result.rows.length,
     };
+}
+
+export async function getUserRatingForRecipe(recipeId, userId) {
+    const result = await pool.query(
+        "SELECT rating FROM ratings WHERE recipe_id = $1 AND user_id = $2 LIMIT 1",
+        [recipeId, userId]
+    );
+
+    if (result.rows.length === 0) {
+        return 0;
+    }
+
+    return Number(result.rows[0].rating);
 }
 
 export async function getNumFavorites(recipeId) {

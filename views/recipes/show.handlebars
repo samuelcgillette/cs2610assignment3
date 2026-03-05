@@ -31,7 +31,7 @@
 
   {{#if authenticated}}
     <form method="post" action="/recipes/{{recipe.id}}/rate" style="display:inline;">
-        <input type="number" name="rating" min="1" max="5" required>
+        <input type="number" name="rating" min="1" max="5" value="{{#if userRating}}{{userRating}}{{/if}}" required>
         <button type="submit">Rate</button>
     </form>
     <form method="post" action="/recipes/{{recipe.id}}/favorite" style="display:inline;">
