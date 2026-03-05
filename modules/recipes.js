@@ -56,14 +56,17 @@ export async function getRatingAverage(recipeId) {
     const result = await pool.query("SELECT rating FROM ratings WHERE recipe_id = $1", [recipeId]);
 
     if (result.rows.length === 0) {
-        return null;
+        return { averageRating: null, totalRatings: 0 };
     }
 
     let total = 0;
     for (const row of result.rows) {
         total += Number(row.rating);
     }
-    return Math.round(total / result.rows.length);
+    return {
+        averageRating: Math.round(total / result.rows.length),
+        totalRatings: result.rows.length,
+    };
 }
 
 export async function getNumFavorites(recipeId) {

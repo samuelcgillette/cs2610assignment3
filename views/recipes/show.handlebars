@@ -10,7 +10,7 @@
 
 <div class="recipe-details">
   <p><strong>Creator:</strong> <a href="/user/{{recipe.user_id}}">View Creator</a></p>
-  <p><strong>Average Rating:</strong> {{#if ratingAverage}}{{ratingAverage}}{{else}}No ratings yet{{/if}}</p>
+  <p><strong>Average Rating of {{ratingSummary.totalRatings}} ratings:</strong> {{#if ratingSummary.totalRatings}}{{ratingSummary.averageRating}}{{else}}No ratings yet{{/if}}</p>
   <p><strong>Favorites:</strong> {{numFavorites}}</p>
   <p><strong>Prep Time:</strong> {{recipe.prep_time}} minutes</p>
   <p><strong>Cook Time:</strong> {{recipe.cook_time}} minutes</p>

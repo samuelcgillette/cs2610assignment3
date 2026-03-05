@@ -41,10 +41,11 @@ router.get("/:id", async (req, res) => {
     }
     const createdAtDisplay = recipe.created_at ? new Date(recipe.created_at).toLocaleString() : "N/A";
     const updatedAtDisplay = recipe.updated_at ? new Date(recipe.updated_at).toLocaleString() : "N/A";
-    const ratingAverage = await getRatingAverage(req.params.id);
+    const ratingSummary = await getRatingAverage(req.params.id);
     const numFavorites = await getNumFavorites(req.params.id);
     res.render("recipes/show", { title: recipe.title, recipe: recipe, 
-        isOwner: isOwner(recipe, req.user), authenticated: req.authenticated, ratingAverage, numFavorites, createdAtDisplay, updatedAtDisplay });
+        isOwner: isOwner(recipe, req.user), authenticated: req.authenticated, ratingSummary, 
+        numFavorites, createdAtDisplay, updatedAtDisplay });
 });
 
 
