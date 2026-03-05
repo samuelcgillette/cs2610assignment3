@@ -25,12 +25,12 @@ router.get("/new", requireAuth, (req, res) => {
 });
 
 router.get("/my-recipes", requireAuth, async (req,res) => {
-    res.render("recipes/index", { title: "My Recipes", recipes: await getUserRecipes(req.user.id), user: req.user, authenticated: req.authenticated });
+    res.render("recipes/special", { title: "My Recipes", recipes: await getUserRecipes(req.user.id), user: req.user, authenticated: req.authenticated });
 });
 
 router.get("/favorites", requireAuth, async (req,res) => {
     
-    res.render("recipes/index", { title: "My Favorites", recipes: await getFavorites(req.user.id), user: req.user, authenticated: req.authenticated });
+    res.render("recipes/special", { title: "My Favorites", recipes: await getFavorites(req.user.id), user: req.user, authenticated: req.authenticated });
 });
 
 router.get("/:id", async (req, res) => {
