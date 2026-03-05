@@ -1,11 +1,22 @@
 import { Router } from "express";
 import { requireAuth } from "../middleware/require_auth.js";
-import { getAllRecipes, getRecipeById, createRecipe, updateRecipe, favoriteRecipe, deleteRecipe, rateRecipe, getUserRecipes, getFavorites, getRatingAverage, getNumFavorites, isOwner } from "../modules/recipes.js";
+import { getAllRecipes, getRecipeById, 
+    createRecipe, updateRecipe, favoriteRecipe, 
+    deleteRecipe, rateRecipe, getUserRecipes, 
+    getFavorites, getRatingAverage, getNumFavorites, isOwner, 
+    getRecipeByWord} from "../modules/recipes.js";
 
 const router = Router();
 
 router.get("/", async (req, res) => {
-    const recipes = await getAllRecipes();
+    console.log(" this is the query", req.query);
+    let recipes;
+    if (req.query.search) {
+        recipes = await getRecipeByWord(req.query.search)
+    }
+    else {
+        recipes = await getAllRecipes();
+    }
     res.render("recipes/index", { title: "All Recipes", recipes: recipes, user: req.user, authenticated: req.authenticated });
 });
 

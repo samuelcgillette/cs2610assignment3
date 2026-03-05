@@ -7,6 +7,11 @@ export async function getAllRecipes() {
     return result.rows;
 }
 
+export async function getRecipeByWord(word) {
+    const result = await pool.query("SELECT * FROM recipes where $1 LIKE title OR $1 LIKE ingredients", [word]);
+    return result.rows;
+}
+
 export async function getRecipeById(id) {
     const result = await pool.query("SELECT * FROM recipes WHERE id = $1", [id]);
     if (result.rows.length === 0) {
