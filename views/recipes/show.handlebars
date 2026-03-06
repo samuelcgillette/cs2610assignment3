@@ -1,6 +1,32 @@
-<h1>{{recipe.title}}</h1>
+<div class="recipe-top-bar">
+  <h1>{{recipe.title}}</h1>
+
+  {{#if authenticated}}
+    <div class="recipe-title-actions">
+      <form method="post" action="/recipes/{{recipe.id}}/rate" class="action-form rate-form">
+        <button type="submit" class="rate-button">Rate</button>
+        <input type="number" name="rating" min="1" max="5" value="{{#if userRating}}{{userRating}}{{/if}}" class="rating-input" required>
+      </form>
+      {{#if isFavorite}}
+        <form method="post" action="/recipes/{{recipe.id}}/unfavorite" class="action-form">
+          <button type="submit" class="button-secondary">Unfavorite</button>
+        </form>
+      {{else}}
+        <form method="post" action="/recipes/{{recipe.id}}/favorite" class="action-form">
+          <button type="submit">Favorite</button>
+        </form>
+      {{/if}}
+    </div>
+  {{/if}}
+</div>
 
 <div class="recipe-card">
+  <div class="recipe-quick-stats">
+    <p><strong>Prep Time:</strong> {{recipe.prep_time}} minutes</p>
+    <p><strong>Cook Time:</strong> {{recipe.cook_time}} minutes</p>
+    <p><strong>Servings:</strong> {{recipe.servings}}</p>
+  </div>
+
   <p>{{recipe.description}}</p>
 
   <h3>Ingredients</h3>
@@ -14,9 +40,6 @@
   <p><strong>Creator:</strong> <a href="/user/{{recipe.user_id}}">View Creator</a></p>
   <p><strong>Ratings:</strong> {{#if ratingSummary.totalRatings}} Average: {{ratingSummary.averageRating}} Total Raitings: {{ratingSummary.totalRatings}}{{else}}No ratings yet{{/if}}</p>
   <p><strong>Favorites:</strong> {{numFavorites}}</p>
-  <p><strong>Prep Time:</strong> {{recipe.prep_time}} minutes</p>
-  <p><strong>Cook Time:</strong> {{recipe.cook_time}} minutes</p>
-  <p><strong>Servings:</strong> {{recipe.servings}}</p>
   <p><strong>Created:</strong> {{createdAtDisplay}}</p>
   <p><strong>Last Updated:</strong> {{updatedAtDisplay}}</p>
 </div>
@@ -28,22 +51,5 @@
     <form method="post" action="/recipes/{{recipe.id}}/delete" class="action-form">
       <button type="submit" class="button-danger">Delete</button>
     </form>
-  {{/if}}
-
-
-  {{#if authenticated}}
-    <form method="post" action="/recipes/{{recipe.id}}/rate" class="action-form rate-form">
-      <input type="number" name="rating" min="1" max="5" value="{{#if userRating}}{{userRating}}{{/if}}" class="rating-input" required>
-      <button type="submit" class="rate-button">Rate</button>
-    </form>
-    {{#if isFavorite}}
-      <form method="post" action="/recipes/{{recipe.id}}/unfavorite" class="action-form">
-          <button type="submit" class="button-secondary">Unfavorite</button>
-      </form>
-    {{else}}
-      <form method="post" action="/recipes/{{recipe.id}}/favorite" class="action-form">
-          <button type="submit">Favorite</button>
-      </form>
-    {{/if}}
   {{/if}}
 </div>
