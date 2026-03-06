@@ -44,7 +44,7 @@
 </div>
 
 <div class="recipe-details">
-  <p><strong>Creator:</strong> <a href="/user/{{recipe.user_id}}">View Creator</a></p>
+  <p>by: <a href="/user/{{recipe.user_id}}">{{recipe.username}}</a></p>
   <p><strong>Ratings:</strong> {{#if ratingSummary.totalRatings}} Average: {{ratingSummary.averageRating}} Total Raitings: {{ratingSummary.totalRatings}}{{else}}No ratings yet{{/if}}</p>
   <p><strong>Favorites:</strong> {{numFavorites}}</p>
   <p><strong>Created:</strong> {{createdAtDisplay}}</p>

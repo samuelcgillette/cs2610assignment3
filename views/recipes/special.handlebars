@@ -3,7 +3,7 @@
   {{#each recipes}}
     <div class="recipe-card">
       <h2><a href="/recipes/{{id}}">{{title}}</a></h2>
-      <p>by: {{username}}</p>
+      <p>by: <a href="/user/{{user_id}}">{{username}}</a></p>
       <p>{{description}}</p>
       <p><strong>Prep Time:</strong> {{prep_time}} minutes</p>
       <p><strong>Cook Time:</strong> {{cook_time}} minutes</p>

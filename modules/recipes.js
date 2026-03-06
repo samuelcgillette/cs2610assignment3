@@ -21,7 +21,8 @@ export async function getRecipeById(id) {
     if (result.rows.length === 0) {
         return null;
     } else {
-        return result.rows[0];
+        const recipesWithUsernames = await attachUsernamesToRecipes(result.rows);
+        return recipesWithUsernames[0];
     }
 }
 
@@ -106,7 +107,8 @@ export async function getNumFavorites(recipeId) {
 
 export async function getUserRecipes(userId) {
     const result = await pool.query("SELECT * FROM recipes WHERE user_id = $1", [userId]);
-    return { recipes: result.rows, numRecipes: result.rows.length };
+    const recipes = await attachUsernamesToRecipes(result.rows);
+    return { recipes, numRecipes: recipes.length };
 }
 
 export async function getFavorites(userId) {
@@ -116,7 +118,7 @@ export async function getFavorites(userId) {
     JOIN recipes ON favorites.recipe_id = recipes.id
     WHERE favorites.user_id = $1
   `, [userId]);
-  return result.rows;
+    return await attachUsernamesToRecipes(result.rows);
 }
 
 export function isOwner(recipe, user) {
