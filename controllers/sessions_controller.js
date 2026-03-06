@@ -10,7 +10,10 @@ router.post("/", async (req, res) => {
     const user = await authenticateUser(req.body.email, req.body.password_hash);
 
     if (!user) {
-        res.send("Invalid email or password");
+        res.status(401).render("sessions/login", {
+            title: "Login",
+            error: "Invalid email or password",
+        });
         return;
     }
 

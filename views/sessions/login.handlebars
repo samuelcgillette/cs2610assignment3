@@ -1,5 +1,9 @@
 <h1>{{title}}</h1>
 
+{{#if error}}
+	<p>{{error}}</p>
+{{/if}}
+
 <form action="/sessions" method="post">
 
 	<div>
