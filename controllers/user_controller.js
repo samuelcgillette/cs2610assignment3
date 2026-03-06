@@ -17,8 +17,6 @@ router.get("/new", (req, res) => {
 });
 
 
-
-// Create a new user
 router.post("/new", async (req, res) => {
     const { username, email, password_hash } = req.body;
     if (!validateUserBody(req.body)) {

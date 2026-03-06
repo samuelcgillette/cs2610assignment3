@@ -30,9 +30,6 @@ router.post("/logout", requireAuth, async (req, res) => {
     res.redirect("/");
 });
 
-router.get("/new", async (req, res) => {
-    res.render("sessions/new", { title: "Login" });
-});
 
 router.get("/login", async (req, res) => {
     res.render("sessions/login", { title: "Login" });
