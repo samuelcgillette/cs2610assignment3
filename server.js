@@ -17,6 +17,8 @@ app.use(express.static('static'));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser())
 
+
+
 app.use(authenticationMiddleware)
 
 app.get('/', async (req, res) => {

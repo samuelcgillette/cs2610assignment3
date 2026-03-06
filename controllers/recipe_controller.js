@@ -22,7 +22,7 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/new", requireAuth, (req, res) => {
-    res.render("recipes/new", { title: "New Recipe" });
+    res.render("recipes/new", { title: "New Recipe", user: req.user, authenticated: req.authenticated });
 });
 
 router.get("/my-recipes", requireAuth, async (req,res) => {
