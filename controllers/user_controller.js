@@ -40,12 +40,22 @@ router.post("/new", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-    //need to get user information like username
     const user = await getUserById(req.params.id);
-    //need to get all of the recpies of a single user
-    const recipes = await getUserRecipes(req.params.id);
-    //give that information to handlebars
-    res.render("users/show", { title: `${user.username}'s Recipes`, user, recipes });
+    if (!user) {
+        res.status(404).send("User not found");
+        return;
+    }
+
+    const { recipes, numRecipes } = await getUserRecipes(req.params.id);
+    const accountCreatedAt = new Date(user.created_at).toLocaleDateString();
+
+    res.render("users/show", {
+        title: `${user.username}'s Recipes`,
+        user,
+        recipes,
+        numRecipes,
+        accountCreatedAt,
+    });
 
 });
 export default router;
