@@ -9,7 +9,6 @@ import { getAllRecipes, getRecipeById,
 const router = Router();
 
 router.get("/", async (req, res) => {
-    console.log(" this is the query", req.query);
     let recipes;
     if (req.query.search) {
         recipes = await getRecipeByWord(req.query.search)

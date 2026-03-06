@@ -1,14 +1,12 @@
 import pool from "../utils/db.js";
 
 export async function getAllRecipes() {
-    console.log("Getting all recipes");
     const result = await pool.query("SELECT * FROM recipes ORDER BY created_at DESC");
-    console.log("Got recipes:", result.rows);
     return result.rows;
 }
 
 export async function getRecipeByWord(word) {
-    const result = await pool.query("SELECT * FROM recipes where $1 LIKE title OR $1 LIKE ingredients", [word]);
+    const result = await pool.query("SELECT * FROM recipes where title LIKE $1 OR ingredients LIKE $1", [`%${word}%`]);
     return result.rows;
 }
 
