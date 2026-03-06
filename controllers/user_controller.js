@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createUser, getUserById, getUserByEmail, getUserByUsername } from "../modules/users.js";
+import { createUser, getUserById, getUserByEmail, getUserByUsername, getUsernameById } from "../modules/users.js";
 import { createSession } from "../modules/sessions.js";
 import { getUserRecipes } from "../modules/recipes.js";
 
@@ -56,7 +56,7 @@ router.get("/:id", async (req, res) => {
     res.render("users/show", {
         title: `${user.username}'s Recipes`,
         user,
-        recipes,
+        recipes: recipes,
         numRecipes,
         accountCreatedAt,
         authenticated: req.authenticated

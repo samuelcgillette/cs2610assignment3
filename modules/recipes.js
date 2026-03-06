@@ -1,18 +1,19 @@
 import pool from "../utils/db.js";
+import { getUsernameById } from "./users.js";
 
 export async function getAllRecipes() {
     const result = await pool.query("SELECT * FROM recipes ORDER BY created_at DESC");
-    return result.rows;
+    return await attachUsernamesToRecipes(result.rows);
 }
 
 export async function getRecentRecpies() {
     const result = await pool.query("SELECT * FROM recipes ORDER BY created_at DESC LIMIT 3");
-    return result.rows;
+    return await attachUsernamesToRecipes(result.rows);
 }
 
 export async function getRecipeByWord(word) {
     const result = await pool.query("SELECT * FROM recipes where title LIKE $1 OR ingredients LIKE $1", [`%${word}%`]);
-    return result.rows;
+    return await attachUsernamesToRecipes(result.rows);
 }
 
 export async function getRecipeById(id) {
@@ -124,4 +125,13 @@ export function isOwner(recipe, user) {
     } catch (e) {
         return false;
     }
+}
+
+async function attachUsernamesToRecipes(recipes) {
+    return Promise.all(
+        recipes.map(async (recipe) => ({
+            ...recipe,
+            username: await getUsernameById(recipe.user_id),
+        }))
+    );
 }

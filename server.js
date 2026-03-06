@@ -20,7 +20,8 @@ app.use(cookieParser())
 app.use(authenticationMiddleware)
 
 app.get('/', async (req, res) => {
-  res.render("home", { title: "recipe social", recipes: await getRecentRecpies(), authenticated: req.authenticated, user: req.user });
+  const recipes = await getRecentRecpies();
+  res.render("home", { title: "recipe social", recipes: recipes, authenticated: req.authenticated, user: req.user });
 });
 
 app.use('/user', registerController);

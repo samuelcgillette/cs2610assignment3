@@ -7,7 +7,7 @@
   {{#each recipes}}
     <div class="recipe-card">
       <h2><a href="/recipes/{{id}}">{{title}}</a></h2>
-      <p><strong>Creator:</strong> <a href="/user/{{user_id}}">View Creator</a></p>
+      <p>by: {{username}}</p>
       <p>{{description}}</p>
       <p><strong>Prep Time:</strong> {{prep_time}} minutes</p>
       <p><strong>Cook Time:</strong> {{cook_time}} minutes</p>

@@ -4,12 +4,11 @@ import { getAllRecipes, getRecipeById,
     createRecipe, updateRecipe, favoriteRecipe, unfavoriteRecipe,
     deleteRecipe, rateRecipe, getUserRecipes, 
     getFavorites, getRatingAverage, getNumFavorites, isOwner, 
-    getRecipeByWord, getUserRatingForRecipe, isUserFavorite} from "../modules/recipes.js";
+    getRecipeByWord, getUserRatingForRecipe, isUserFavorite } from "../modules/recipes.js";
 
 const router = Router();
 
 
-const recipeNumericValidationError = "Prep time, cook time, and servings must be positive integers.";
 
 router.get("/", async (req, res) => {
     let recipes;
@@ -32,8 +31,8 @@ router.get("/my-recipes", requireAuth, async (req,res) => {
 });
 
 router.get("/favorites", requireAuth, async (req,res) => {
-    
-    res.render("recipes/special", { title: "My Favorites", recipes: await getFavorites(req.user.id), user: req.user, authenticated: req.authenticated });
+    const recipes = await getFavorites(req.user.id);
+    res.render("recipes/special", { title: "My Favorites", recipes, user: req.user, authenticated: req.authenticated });
 });
 
 router.get("/:id", async (req, res) => {

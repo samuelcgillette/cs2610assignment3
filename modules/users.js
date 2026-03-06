@@ -32,6 +32,15 @@ export async function getUserById(id) {
   return rows[0];
 }
 
+export async function getUsernameById(id) {
+  const { rows } = await pool.query(`
+    SELECT username FROM users WHERE id = $1
+  `, [id]);
+
+  if (rows.length === 0) return null;
+  return rows[0].username;
+}
+
 export async function getUserByEmail(email) {
   const { rows } = await pool.query(`
     SELECT * FROM users WHERE email = $1
