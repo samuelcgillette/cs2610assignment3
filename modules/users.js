@@ -8,7 +8,6 @@ export async function createUser(username, email, password) {
   `, [username, email, await bcrypt.hash(password, 10)]);
 
   return rows[0];
-  //if user already exists need to do something
 }
 
 
@@ -30,7 +29,24 @@ export async function getUserById(id) {
   `, [id]);
 
   if (rows.length === 0) return null;
-  console.log("Got user by id:", rows[0]);
+  return rows[0];
+}
+
+export async function getUserByEmail(email) {
+  const { rows } = await pool.query(`
+    SELECT * FROM users WHERE email = $1
+  `, [email]);
+
+  if (rows.length === 0) return null;
+  return rows[0];
+}
+
+export async function getUserByUsername(username) {
+  const { rows } = await pool.query(`
+    SELECT * FROM users WHERE username = $1
+  `, [username]);
+
+  if (rows.length === 0) return null;
   return rows[0];
 }
 

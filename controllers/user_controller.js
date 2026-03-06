@@ -1,19 +1,17 @@
 import { Router } from "express";
-import { createUser, getUserById } from "../modules/users.js";
+import { createUser, getUserById, getUserByEmail, getUserByUsername } from "../modules/users.js";
 import { createSession } from "../modules/sessions.js";
 import { getUserRecipes } from "../modules/recipes.js";
 
 const router = Router();
 
 function validateUserBody(body) {
-  console.log("Received validate data:", body);
   if (body.firstname === '' || body.lastname === '' || body.email === '' || body.password === '') return false;
   if (!body.email.includes('@')) return false;
   if (body.password_hash.length < 8) return false;
   return true;
 }
 
-// Show form to create a new user
 router.get("/new", (req, res) => {
     res.render("users/new");
 });
@@ -23,9 +21,17 @@ router.get("/new", (req, res) => {
 // Create a new user
 router.post("/new", async (req, res) => {
     const { username, email, password_hash } = req.body;
-    console.log("Received registration data:", req.body);
     if (!validateUserBody(req.body)) {
-        res.send("Make sure you have filled out all fields and that your password is long enough (8 characters)");
+        res.status(400).render("users/new", {
+            error: "Make sure you have filled out all fields and that your password is long enough (8 characters)",
+        });
+        return;
+    }
+
+    if (await getUserByEmail(email) || await getUserByUsername(username)) {
+        res.status(400).render("users/new", {
+            error: "User with that email or username already exists. Please choose a different email or username.",
+        });
         return;
     }
 
