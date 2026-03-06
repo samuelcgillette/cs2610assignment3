@@ -32,9 +32,9 @@
 
 
   {{#if authenticated}}
-    <form method="post" action="/recipes/{{recipe.id}}/rate" class="action-form">
-        <input type="number" name="rating" min="1" max="5" value="{{#if userRating}}{{userRating}}{{/if}}" required>
-        <button type="submit">Rate</button>
+    <form method="post" action="/recipes/{{recipe.id}}/rate" class="action-form rate-form">
+      <input type="number" name="rating" min="1" max="5" value="{{#if userRating}}{{userRating}}{{/if}}" class="rating-input" required>
+      <button type="submit" class="rate-button">Rate</button>
     </form>
     {{#if isFavorite}}
       <form method="post" action="/recipes/{{recipe.id}}/unfavorite" class="action-form">
