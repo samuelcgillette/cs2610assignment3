@@ -23,17 +23,17 @@
 
   <div>
     <label for="prep_time">Prep Time (minutes)</label>
-    <input type="number" id="prep_time" name="prep_time" value="{{recipe.prep_time}}" required>
+    <input type="number" id="prep_time" name="prep_time" value="{{recipe.prep_time}}" min="1" required>
   </div>
 
   <div>
     <label for="cook_time">Cook Time (minutes)</label>
-    <input type="number" id="cook_time" name="cook_time" value="{{recipe.cook_time}}" required>
+    <input type="number" id="cook_time" name="cook_time" value="{{recipe.cook_time}}" min="1" required>
   </div>
 
   <div>
     <label for="servings">Servings</label>
-    <input type="number" id="servings" name="servings" value="{{recipe.servings}}" required>
+    <input type="number" id="servings" name="servings" value="{{recipe.servings}}" min="1" required>
   </div>
 
   <button type="submit">Update Recipe</button>

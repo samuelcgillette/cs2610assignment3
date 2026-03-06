@@ -55,6 +55,7 @@ router.get("/:id", async (req, res) => {
         recipes,
         numRecipes,
         accountCreatedAt,
+        authenticated: req.authenticated
     });
 
 });

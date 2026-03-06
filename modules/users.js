@@ -13,7 +13,6 @@ export async function createUser(username, email, password) {
 
 
 export async function authenticateUser(email, password) {
-  console.log("authenticating " + email + " " + password);
   const {rows} = await pool.query(`
     SELECT * FROM users WHERE email = $1
   `, [email]);

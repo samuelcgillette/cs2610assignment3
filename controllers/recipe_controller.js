@@ -24,7 +24,8 @@ router.get("/new", requireAuth, (req, res) => {
 });
 
 router.get("/my-recipes", requireAuth, async (req,res) => {
-    res.render("recipes/special", { title: "My Recipes", recipes: await getUserRecipes(req.user.id), user: req.user, authenticated: req.authenticated });
+    const result = await getUserRecipes(req.user.id);
+    res.render("recipes/special", { title: "My Recipes", recipes: result.recipes, user: req.user, authenticated: req.authenticated });
 });
 
 router.get("/favorites", requireAuth, async (req,res) => {
@@ -73,7 +74,6 @@ router.post("/:id", requireAuth, async (req,res) => {
 })
 
 router.post("/:id/delete", requireAuth, async (req,res) => {
-    console.log("alo")
     await deleteRecipe(req.params.id);
     res.redirect("/recipes");
 });
