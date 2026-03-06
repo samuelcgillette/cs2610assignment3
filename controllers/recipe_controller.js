@@ -8,6 +8,9 @@ import { getAllRecipes, getRecipeById,
 
 const router = Router();
 
+
+const recipeNumericValidationError = "Prep time, cook time, and servings must be positive integers.";
+
 router.get("/", async (req, res) => {
     let recipes;
     if (req.query.search) {
@@ -59,6 +62,7 @@ router.get("/:id", async (req, res) => {
 
 
 router.post("/", requireAuth, async (req, res) => {
+
     await createRecipe(req);
     res.redirect("/recipes");
 });
@@ -68,6 +72,7 @@ router.get("/:id/edit", requireAuth, async (req,res) => {
 })
 
 router.post("/:id", requireAuth, async (req,res) => {
+
     const id = req.params.id;
     await updateRecipe(id, req);
     res.redirect(`/recipes/${id}`);
