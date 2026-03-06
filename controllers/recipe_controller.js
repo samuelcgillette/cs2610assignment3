@@ -1,10 +1,10 @@
 import { Router } from "express";
 import { requireAuth } from "../middleware/require_auth.js";
 import { getAllRecipes, getRecipeById, 
-    createRecipe, updateRecipe, favoriteRecipe, 
+    createRecipe, updateRecipe, favoriteRecipe, unfavoriteRecipe,
     deleteRecipe, rateRecipe, getUserRecipes, 
     getFavorites, getRatingAverage, getNumFavorites, isOwner, 
-    getRecipeByWord, getUserRatingForRecipe} from "../modules/recipes.js";
+    getRecipeByWord, getUserRatingForRecipe, isUserFavorite} from "../modules/recipes.js";
 
 const router = Router();
 
@@ -39,19 +39,21 @@ router.get("/:id", async (req, res) => {
         res.status(404).send("Recipe not found");
         return;
     }
-    const createdAtDisplay = recipe.created_at ? new Date(recipe.created_at).toLocaleString() : "N/A";
-    const updatedAtDisplay = recipe.updated_at ? new Date(recipe.updated_at).toLocaleString() : "N/A";
+    const createdAtDisplay = new Date(recipe.created_at).toLocaleString();
+    const updatedAtDisplay = new Date(recipe.updated_at).toLocaleString();
     const ratingSummary = await getRatingAverage(req.params.id);
 
     let userRating = 0;
+    let isFavorite = false;
     if (req.authenticated) {
         userRating = await getUserRatingForRecipe(req.params.id, req.user.id);
-    }   
+        isFavorite = await isUserFavorite(req.params.id, req.user.id);
+    }
 
     const numFavorites = await getNumFavorites(req.params.id);
     res.render("recipes/show", { title: recipe.title, recipe: recipe, 
         isOwner: isOwner(recipe, req.user), authenticated: req.authenticated, ratingSummary, 
-        numFavorites, createdAtDisplay, updatedAtDisplay, userRating });
+        numFavorites, createdAtDisplay, updatedAtDisplay, userRating, isFavorite });
 });
 
 
@@ -85,6 +87,11 @@ router.post("/:id/rate", requireAuth, async (req,res) => {
 
 router.post("/:id/favorite", requireAuth, async (req,res) => {
     await favoriteRecipe(req.params.id, req.user.id);
+    res.redirect(`/recipes/${req.params.id}`);
+})
+
+router.post("/:id/unfavorite", requireAuth, async (req,res) => {
+    await unfavoriteRecipe(req.params.id, req.user.id);
     res.redirect(`/recipes/${req.params.id}`);
 })
 

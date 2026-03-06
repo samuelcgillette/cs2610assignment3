@@ -54,6 +54,17 @@ export async function favoriteRecipe(recipeId, userId) {
     )
 }
 
+export async function unfavoriteRecipe(recipeId, userId) {
+    await pool.query("DELETE FROM favorites WHERE recipe_id = $1 AND user_id = $2",
+    [recipeId, userId]
+    )
+}
+
+export async function isUserFavorite(recipeId, userId) {
+    const result = await pool.query("SELECT * FROM favorites WHERE recipe_id = $1 AND user_id = $2", [recipeId, userId]);
+    return result.rows.length > 0;
+}
+
 export async function getRatingAverage(recipeId) {
     const result = await pool.query("SELECT rating FROM ratings WHERE recipe_id = $1", [recipeId]);
 

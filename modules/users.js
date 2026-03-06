@@ -34,3 +34,4 @@ export async function getUserById(id) {
   console.log("Got user by id:", rows[0]);
   return rows[0];
 }
+
