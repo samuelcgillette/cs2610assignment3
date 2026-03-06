@@ -43,6 +43,8 @@ export async function updateRecipe(id, req) {
 }
 
 export async function deleteRecipe(id) {
+    //NEED TO FIX. NEED TO REMOVE FROM FAVORITES AND RATINGS TABLES AS WELL
+    // SELECT FROM recipes JOIN favorites ON recipes.id = favorites.recipe_id JOIN ratings ON recipes.id = ratings.recipe_id WHERE recipes.id = 5;
     await pool.query("DELETE FROM recipes WHERE id = $1", [id]);
 }
 
