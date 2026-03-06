@@ -5,7 +5,7 @@ import cookieParser from 'cookie-parser';
 import authenticationMiddleware from './middleware/authentication_middleware.js';
 import sessionsController from './controllers/sessions_controller.js';
 import recipeController from './controllers/recipe_controller.js';
-import { getAllRecipes } from './modules/recipes.js';
+import { getRecentRecpies } from './modules/recipes.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,7 +20,7 @@ app.use(cookieParser())
 app.use(authenticationMiddleware)
 
 app.get('/', async (req, res) => {
-  res.render("home", { title: "Home", recipes: await getAllRecipes(), authenticated: req.authenticated, user: req.user });
+  res.render("home", { title: "recipe social", recipes: await getRecentRecpies(), authenticated: req.authenticated, user: req.user });
 });
 
 app.use('/user', registerController);

@@ -16,6 +16,13 @@
           <button type="submit">Favorite</button>
         </form>
       {{/if}}
+
+      {{#if isOwner}}
+        <a href="/recipes/{{recipe.id}}/edit" class="button-link button-secondary">Edit</a>
+        <form method="post" action="/recipes/{{recipe.id}}/delete" class="action-form">
+          <button type="submit" class="button-danger">Delete</button>
+        </form>
+      {{/if}}
     </div>
   {{/if}}
 </div>
@@ -42,14 +49,4 @@
   <p><strong>Favorites:</strong> {{numFavorites}}</p>
   <p><strong>Created:</strong> {{createdAtDisplay}}</p>
   <p><strong>Last Updated:</strong> {{updatedAtDisplay}}</p>
-</div>
-
-
-<div class="recipe-actions">
-  {{#if isOwner}}
-    <a href="/recipes/{{recipe.id}}/edit" class="button-link button-secondary">Edit</a>
-    <form method="post" action="/recipes/{{recipe.id}}/delete" class="action-form">
-      <button type="submit" class="button-danger">Delete</button>
-    </form>
-  {{/if}}
 </div>

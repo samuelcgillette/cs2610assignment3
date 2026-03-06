@@ -5,6 +5,11 @@ export async function getAllRecipes() {
     return result.rows;
 }
 
+export async function getRecentRecpies() {
+    const result = await pool.query("SELECT * FROM recipes ORDER BY created_at DESC LIMIT 3");
+    return result.rows;
+}
+
 export async function getRecipeByWord(word) {
     const result = await pool.query("SELECT * FROM recipes where title LIKE $1 OR ingredients LIKE $1", [`%${word}%`]);
     return result.rows;

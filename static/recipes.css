@@ -5,6 +5,27 @@
   margin-top: 1rem;
 }
 
+.home-header {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.home-header h1 {
+  margin-bottom: 0.25rem;
+}
+
+.home-subtitle {
+  margin: 0;
+  color: var(--muted);
+  text-transform: capitalize;
+}
+
+.home-divider {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin-top: 0.85rem;
+}
+
 .recipe-card {
   background: var(--surface);
   border: 1px solid var(--border);
