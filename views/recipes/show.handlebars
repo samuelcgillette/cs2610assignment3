@@ -1,12 +1,14 @@
 <h1>{{recipe.title}}</h1>
 
-<p>{{recipe.description}}</p>
+<div class="recipe-card">
+  <p>{{recipe.description}}</p>
 
-<h3>Ingredients</h3>
-<p>{{recipe.ingredients}}</p>
+  <h3>Ingredients</h3>
+  <p>{{recipe.ingredients}}</p>
 
-<h3>Instructions</h3>
-<p>{{recipe.instructions}}</p>
+  <h3>Instructions</h3>
+  <p>{{recipe.instructions}}</p>
+</div>
 
 <div class="recipe-details">
   <p><strong>Creator:</strong> <a href="/user/{{recipe.user_id}}">View Creator</a></p>
@@ -22,24 +24,24 @@
 
 <div class="recipe-actions">
   {{#if isOwner}}
-    <a href="/recipes/{{recipe.id}}/edit">Edit</a>
-    <form method="post" action="/recipes/{{recipe.id}}/delete" style="display:inline;">
-      <button type="submit">Delete</button>
+    <a href="/recipes/{{recipe.id}}/edit" class="button-link button-secondary">Edit</a>
+    <form method="post" action="/recipes/{{recipe.id}}/delete" class="action-form">
+      <button type="submit" class="button-danger">Delete</button>
     </form>
   {{/if}}
 
 
   {{#if authenticated}}
-    <form method="post" action="/recipes/{{recipe.id}}/rate" style="display:inline;">
+    <form method="post" action="/recipes/{{recipe.id}}/rate" class="action-form">
         <input type="number" name="rating" min="1" max="5" value="{{#if userRating}}{{userRating}}{{/if}}" required>
         <button type="submit">Rate</button>
     </form>
     {{#if isFavorite}}
-      <form method="post" action="/recipes/{{recipe.id}}/unfavorite" style="display:inline;">
-          <button type="submit">Unfavorite</button>
+      <form method="post" action="/recipes/{{recipe.id}}/unfavorite" class="action-form">
+          <button type="submit" class="button-secondary">Unfavorite</button>
       </form>
     {{else}}
-      <form method="post" action="/recipes/{{recipe.id}}/favorite" style="display:inline;">
+      <form method="post" action="/recipes/{{recipe.id}}/favorite" class="action-form">
           <button type="submit">Favorite</button>
       </form>
     {{/if}}

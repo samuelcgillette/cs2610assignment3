@@ -1,0 +1,132 @@
+:root {
+  --bg: #f5f7fb;
+  --surface: #ffffff;
+  --surface-alt: #eef2ff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --border: #dbe3f0;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-soft: #dbeafe;
+  --danger-bg: #fee2e2;
+  --danger-text: #991b1b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f8fbff 0%, var(--bg) 100%);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}
+
+.site-header {
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, #ffffff 0%, #f7faff 100%);
+  padding: 0.8rem 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.top-nav {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.top-nav a {
+  color: var(--text);
+  font-weight: 600;
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.top-nav a:hover {
+  color: var(--accent-hover);
+  background: var(--accent-soft);
+  border-color: #bfdbfe;
+  text-decoration: none;
+}
+
+.inline-form {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+}
+
+.inline-form button {
+  margin-left: 0.25rem;
+}
+
+.top-nav .nav-button {
+  background: transparent;
+  color: var(--text);
+  font-weight: 600;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 0.45rem 0.75rem;
+}
+
+.top-nav .nav-button:hover {
+  color: var(--accent-hover);
+  background: var(--accent-soft);
+  border-color: #bfdbfe;
+}
+
+.top-nav .nav-button:active {
+  transform: none;
+}
+
+.page-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 1.25rem auto;
+  padding: 0 1rem;
+  flex: 1;
+}
+
+h1,
+h2,
+h3 {
+  margin-top: 0;
+}
+
+.site-footer {
+  margin-top: auto;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  text-align: center;
+  color: var(--muted);
+  padding: 1rem;
+}
+
+.form-error {
+  margin: 0 0 1rem;
+  padding: 0.75rem;
+  background: var(--danger-bg);
+  color: var(--danger-text);
+  border: 1px solid #fca5a5;
+  border-radius: 8px;
+}

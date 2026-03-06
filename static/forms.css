@@ -1,0 +1,101 @@
+form:not(.inline-form):not(.action-form) {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-top: 0.75rem;
+}
+
+form:not(.inline-form):not(.action-form) > div {
+  margin-bottom: 0.85rem;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+input,
+textarea,
+button {
+  font: inherit;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+button {
+  border: 1px solid #1e40af;
+  border-radius: 999px;
+  padding: 0.5rem 0.9rem;
+  background: var(--accent);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.12s ease;
+}
+
+button:hover {
+  background: var(--accent-hover);
+  border-color: #1e3a8a;
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-top: 0.25rem;
+}
+
+.button-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 0.5rem 0.9rem;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.button-link:hover {
+  text-decoration: none;
+}
+
+.button-secondary {
+  background: var(--surface-alt);
+  color: var(--text);
+  border-color: #cbd5e1;
+}
+
+.button-secondary:hover {
+  background: #e2e8f0;
+  border-color: #94a3b8;
+}
+
+.button-danger {
+  background: #dc2626;
+  border-color: #b91c1c;
+  color: #ffffff;
+}
+
+.button-danger:hover {
+  background: #b91c1c;
+  border-color: #991b1b;
+}

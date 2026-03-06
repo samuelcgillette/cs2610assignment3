@@ -1,5 +1,9 @@
 <h1>{{title}}</h1>
 
+{{#if error}}
+  <p class="form-error">{{error}}</p>
+{{/if}}
+
 
 <form method="post" action="/recipes/{{recipe.id}}">
   <div>
@@ -37,5 +41,8 @@
     <input type="number" id="servings" name="servings" value="{{recipe.servings}}" min="1" step="1" required>
   </div>
 
-  <button type="submit">Update Recipe</button>
+  <div class="form-actions">
+    <button type="submit">Update Recipe</button>
+    <a href="/recipes/{{recipe.id}}" class="button-link button-secondary">Cancel</a>
+  </div>
 </form>

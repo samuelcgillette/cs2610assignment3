@@ -1,5 +1,9 @@
 <h1>{{title}}</h1>
 
+{{#if error}}
+  <p class="form-error">{{error}}</p>
+{{/if}}
+
 <form method="post" action="/recipes">
   <div>
     <label for="title">Recipe Title</label>

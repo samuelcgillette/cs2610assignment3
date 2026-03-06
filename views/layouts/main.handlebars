@@ -5,26 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{title}}</title>
+    <link rel="stylesheet" href="/base.css">
+    <link rel="stylesheet" href="/recipes.css">
+    <link rel="stylesheet" href="/forms.css">
 </head>
 <body>
-    <a href="/">Home</a>
-    <a href="/recipes">Browse Recipes</a>
-    {{#if authenticated}}
-        <a href="/recipes/my-recipes">My Recipes</a>
-        <a href="/recipes/new">Create Recipe</a>
-        <a href="/recipes/favorites">Favorites</a>
-        <form action="/sessions/logout" method="POST" style="display: inline;">
-            <button type="submit">Logout</button>
-        </form>
-        
-    {{else}}
-        <a href="/sessions/login">Login</a>
-        <a href="/user/new">Register</a>
-    {{/if}}
-    {{{body}}}
-</body>
+    <header class="site-header">
+        <nav class="top-nav">
+            <a href="/">Home</a>
+            <a href="/recipes">Browse Recipes</a>
+            {{#if authenticated}}
+                <a href="/recipes/my-recipes">My Recipes</a>
+                <a href="/recipes/new">Create Recipe</a>
+                <a href="/recipes/favorites">Favorites</a>
+                <form action="/sessions/logout" method="POST" class="inline-form">
+                    <button type="submit" class="nav-button">Logout</button>
+                </form>
+            {{else}}
+                <a href="/sessions/login">Login</a>
+                <a href="/user/new">Register</a>
+            {{/if}}
+        </nav>
+    </header>
 
-<footer>
-    <p>&copy; 2026 My Recipes App</p>
-</footer>
+    <main class="page-container">
+        {{{body}}}
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 My Recipes App</p>
+    </footer>
+</body>
 </html>

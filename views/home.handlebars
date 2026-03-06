@@ -1,9 +1,10 @@
 <h1>Welcome to the Home Page</h1>
 <div>Here are the featured recipes</div>
-<ul>
+<div class="recipes-container">
     {{#each recipes}}
-        <li>
-            <a href="/recipes/{{id}}">{{title}}</a> by <a href="/user/{{user_id}}">creator</a>
-        </li>
+        <div class="recipe-card">
+            <h2><a href="/recipes/{{id}}">{{title}}</a></h2>
+            <p><strong>Creator:</strong> <a href="/user/{{user_id}}">View Creator</a></p>
+        </div>
     {{/each}}
-</ul>
+</div>
